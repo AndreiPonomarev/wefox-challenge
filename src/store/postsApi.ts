@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Post } from '../types';
 
-
 export interface PostsState {
   data: Post[];
 }
@@ -17,7 +16,7 @@ export const postsApi = createApi({
     getPostById: builder.query<Post, string>({
       query: (id) => `posts/${id}`,
     }),
-    addNewPost: builder.mutation<void, Post> ({
+    addNewPost: builder.mutation<void, Post>({
       query: (newPost) => ({
         url: 'posts',
         method: 'POST',

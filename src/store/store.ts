@@ -8,12 +8,13 @@ export const store = configureStore({
     [mapApi.reducerPath]: mapApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
   },
-   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(postsApi.middleware).concat(mapApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(postsApi.middleware)
+      .concat(mapApi.middleware),
 });
 
-setupListeners(store.dispatch)
-
+setupListeners(store.dispatch);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

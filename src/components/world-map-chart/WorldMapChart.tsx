@@ -9,7 +9,6 @@ import { MapPoint } from '../map-point/MapPoint';
 import { Post } from '../../types';
 
 import styles from './WorldMapChart.module.css';
-import { Box, Modal, Typography } from '@mui/material';
 
 const uuid = require('react-uuid');
 const scale: number = 250;
@@ -29,7 +28,7 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
   const [isRotate, setIsRotate] = useState<boolean>(true);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  const { data: mapData, error, isLoading } = useGetMapQuery();
+  const { data: mapData } = useGetMapQuery();
 
   useEffect(() => {
     if (mapData) {
@@ -64,16 +63,16 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
 
   const handleMouseDown = () => {
     setIsDragging(true);
-    setIsRotate(false)
+    setIsRotate(false);
   };
   const handleMouseUp = () => {
     setIsDragging(false);
-    setIsRotate(true)
+    setIsRotate(true);
   };
 
   const handleManualRotation = (e: any) => {
-    if(isDragging){
-      setIsRotate(false)
+    if (isDragging) {
+      setIsRotate(false);
       setRotation(rotation + e.movementX);
     }
   };

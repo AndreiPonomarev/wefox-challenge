@@ -19,8 +19,8 @@ export const Posts = () => {
 
   const onSubmit = (data: any) => {
     addPost(data);
-    setOpenModal(false)
-    refetch()
+    setOpenModal(false);
+    refetch();
   };
 
   return (
