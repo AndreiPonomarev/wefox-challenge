@@ -1,17 +1,14 @@
 import React from 'react';
-import { useAppSelector } from '../../app/hooks';
-
+import { useGetPostsQuery } from './postsApi';
 
 import styles from './Posts.module.css';
-import { selectPosts } from './postsSlice';
 
 export function Posts() {
-      const posts = useAppSelector(selectPosts);
-
+  const { data, error, isLoading } = useGetPostsQuery();
 
   return (
     <div className={styles.root}>
-        <pre>{JSON.stringify(posts, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }
