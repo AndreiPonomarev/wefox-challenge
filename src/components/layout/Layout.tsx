@@ -1,20 +1,17 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
+import styles from './Layout.module.css'
+
 export const Layout = () => {
   return (
     <div>
       <nav>
-        <ul>
-          <li>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/posts">Posts</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
+          
         </ul>
       </nav>
 

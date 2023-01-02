@@ -26,6 +26,7 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
   >([]);
   const [rotation, setRotation] = useState<number>(initRotation);
   const [isRotate, setIsRotate] = useState<Boolean>(true);
+  const [isDragging, setIsDragging] = useState<Boolean>(false);
 
   const { data: mapData, error, isLoading } = useGetMapQuery();
 
@@ -52,17 +53,40 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
       if (rotation >= 360) {
         newRotation = rotation - 360;
       }
-      setRotation(newRotation + 0.5);
+      setRotation(newRotation + 0.2);
     }
   });
 
-  const handleRotation = (enter: boolean) => {
+  const handleAutoRotation = (enter: boolean) => {
     setIsRotate(enter);
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+    setIsRotate(false)
+  };
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    setIsRotate(true)
+  };
+
+  const handleManualRotation = (e: any) => {
+    if(isDragging){
+      setIsRotate(false)
+      setRotation(rotation + e.movementX);
+    }
   };
 
   return (
     <>
-      <svg width={scale * 3} height={scale * 3} viewBox="0 0 800 450">
+      <svg
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleManualRotation}
+        width={scale * 3}
+        height={scale * 3}
+        viewBox="0 0 800 450"
+      >
         <g>
           <circle fill="#ddd" cx={cx} cy={cy} r={scale} />
         </g>
@@ -85,7 +109,7 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
               key={`point-${post.id}`}
               post={post}
               projection={projection}
-              handleRotation={handleRotation}
+              handleAutoRotation={handleAutoRotation}
             />
           ))}
         </g>

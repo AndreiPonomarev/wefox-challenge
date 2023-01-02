@@ -14,7 +14,7 @@ export const postsApi = createApi({
       query: () => `posts`,
     }),
     getPostById: builder.query<Post, string>({
-      query: (id) => `post/${id}`,
+      query: (id) => `posts/${id}`,
     }),
     addNewPost: builder.mutation<void, Post> ({
       query: (newPost) => ({

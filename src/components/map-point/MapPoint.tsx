@@ -1,28 +1,31 @@
 import Tooltip from '@mui/material/Tooltip';
 import { GeoProjection } from 'd3-geo';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Post } from '../../types';
 import { PostTooltip } from '../post-tooltip/PostTooltip';
 
 interface Props {
   post: Post;
   projection: GeoProjection;
-  handleRotation: (enter: boolean) => void;
+  handleAutoRotation: (enter: boolean) => void;
 }
 
 export const MapPoint: React.FC<Props> = ({
   post,
   projection,
-  handleRotation,
+  handleAutoRotation,
 }) => {
-  function returnProjectionValueWhenValid(long: number, lat: number) {
+  const navigate = useNavigate();
+
+  const returnProjectionValueWhenValid = (long: number, lat: number) => {
     const retVal: [number, number] | null = projection([long, lat]);
 
     if (retVal?.length) {
       return retVal;
     }
     return [0, 0];
-  }
+  };
 
   const [cx, cy] = returnProjectionValueWhenValid(
     Number(post.long),
@@ -30,11 +33,11 @@ export const MapPoint: React.FC<Props> = ({
   );
 
   const handleMarkerClick = () => {
-    console.log('!!click: ', post.id);
+    navigate(`/${post.id}`);
   };
 
   const handleMouseEnter = (enter: boolean) => () => {
-    handleRotation(enter);
+    handleAutoRotation(enter);
   };
 
   return (
