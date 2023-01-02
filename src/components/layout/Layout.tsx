@@ -5,7 +5,7 @@ import styles from './Layout.module.css'
 
 export const Layout = () => {
   return (
-    <div>
+    <div className={styles.root}>
       <nav>
         <ul className={styles.list}>
           <li className={styles.listItem}>

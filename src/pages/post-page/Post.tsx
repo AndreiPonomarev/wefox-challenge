@@ -13,14 +13,16 @@ export const PostPage = () => {
     isLoading,
   } = useGetPostByIdQuery(params.id as string);
 
+  if (isLoading) return <div>Loading...</div>
+  if (error || !postData) return <div>Missing post!</div>
+
   return (
-    <>
+    <div className={styles.root}>
       {postData && (
         <div className={styles.root}>
           <Typography variant="h3" gutterBottom>
             {postData.title}
           </Typography>
-          <Divider />
           <img
             className={styles.postImage}
             src={postData.image_url}
@@ -35,6 +37,6 @@ export const PostPage = () => {
           </Typography>
         </div>
       )}
-    </>
+    </div>
   );
 };

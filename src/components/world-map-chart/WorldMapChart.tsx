@@ -8,7 +8,8 @@ import { useGetMapQuery } from '../../store/mapApi';
 import { MapPoint } from '../map-point/MapPoint';
 import { Post } from '../../types';
 
-import styles from './WorldMap.module.css';
+import styles from './WorldMapChart.module.css';
+import { Box, Modal, Typography } from '@mui/material';
 
 const uuid = require('react-uuid');
 const scale: number = 250;
@@ -25,8 +26,8 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
     [] | Array<Feature<Geometry | null>>
   >([]);
   const [rotation, setRotation] = useState<number>(initRotation);
-  const [isRotate, setIsRotate] = useState<Boolean>(true);
-  const [isDragging, setIsDragging] = useState<Boolean>(false);
+  const [isRotate, setIsRotate] = useState<boolean>(true);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const { data: mapData, error, isLoading } = useGetMapQuery();
 
@@ -77,15 +78,16 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
     }
   };
 
+
   return (
-    <>
+    <div className={styles.root}>
       <svg
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleManualRotation}
-        width={scale * 3}
-        height={scale * 3}
-        viewBox="0 0 800 450"
+        width={scale * 2}
+        height={scale * 2}
+        viewBox="0 0 700 350"
       >
         <g>
           <circle fill="#ddd" cx={cx} cy={cy} r={scale} />
@@ -114,6 +116,6 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
           ))}
         </g>
       </svg>
-    </>
+    </div>
   );
 };

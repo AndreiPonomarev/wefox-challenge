@@ -1,4 +1,9 @@
+.root {
+  padding: 0 24px;
+}
 .list {
+  padding: 16px;
+  margin: 0;
   list-style-type: none;
   display: flex;
   align-items: center;
