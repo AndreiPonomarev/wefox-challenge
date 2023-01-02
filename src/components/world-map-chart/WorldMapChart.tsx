@@ -78,7 +78,6 @@ export const WorldMapChart: React.FC<Props> = ({ posts }) => {
     }
   };
 
-
   return (
     <div className={styles.root}>
       <svg

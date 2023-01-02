@@ -9,6 +9,7 @@ export interface PostsState {
 export const postsApi = createApi({
   reducerPath: 'postsApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/v1/' }),
+  keepUnusedDataFor: 0,
   endpoints: (builder) => ({
     getPosts: builder.query<Post[], void>({
       query: () => `posts`,

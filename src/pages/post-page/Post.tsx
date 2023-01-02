@@ -1,8 +1,12 @@
 import { Typography, Box, Button, Modal, TextField } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import { useEditPostMutation, useGetPostByIdQuery } from '../../store/postsApi';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+  useDeletePostMutation,
+  useEditPostMutation,
+  useGetPostByIdQuery,
+} from '../../store/postsApi';
 import { Post } from '../../types';
 
 import styles from './Post.module.css';
@@ -10,6 +14,7 @@ import styles from './Post.module.css';
 export const PostPage = () => {
   const [openModal, setOpenModal] = React.useState<boolean>(false);
 
+  const navigate = useNavigate();
   const params = useParams();
 
   const { register, handleSubmit } = useForm<Partial<Post>>();
@@ -22,6 +27,7 @@ export const PostPage = () => {
   } = useGetPostByIdQuery(params.id as string);
 
   const [editPost] = useEditPostMutation();
+  const [deletePost] = useDeletePostMutation();
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -31,6 +37,14 @@ export const PostPage = () => {
       editPost({ ...data, id: postData.id });
       setOpenModal(false);
       refetch();
+    }
+  };
+
+  const handleDelete = () => {
+    // eslint-disable-next-line no-restricted-globals
+    if (postData && confirm('Are you sure?')) {
+      deletePost(`${postData.id}`);
+      navigate('/');
     }
   };
 
@@ -60,6 +74,9 @@ export const PostPage = () => {
 
       <Button variant="outlined" onClick={handleOpenModal}>
         Edit
+      </Button>
+      <Button variant="outlined" onClick={handleDelete} color={'warning'}>
+        Delete
       </Button>
       <Modal
         open={openModal}
