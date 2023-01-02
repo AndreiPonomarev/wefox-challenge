@@ -1,15 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Post } from '../types';
 
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  lat: string;
-  long: string;
-  image_url: string;
-  created_at: string;
-  updated_at: string;
-}
+
 export interface PostsState {
   data: Post[];
 }
@@ -24,21 +16,21 @@ export const postsApi = createApi({
     getPostById: builder.query<Post, string>({
       query: (id) => `post/${id}`,
     }),
-    addNewPost: builder.mutation({
+    addNewPost: builder.mutation<void, Post> ({
       query: (newPost) => ({
         url: 'posts',
         method: 'POST',
         body: newPost,
       }),
     }),
-    editPost: builder.mutation({
+    editPost: builder.mutation<void, Post>({
       query: (post: Post) => ({
         url: `/posts/${post.id}`,
         method: 'PATCH',
         body: post,
       }),
     }),
-    deletePost: builder.mutation({
+    deletePost: builder.mutation<void, string>({
       query: (id) => ({
         url: `/posts/${id}`,
         method: 'DELETE',

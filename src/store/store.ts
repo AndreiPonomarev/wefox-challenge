@@ -1,15 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import counterReducer from '../features/counter/counterSlice';
-import { postsApi } from '../features/posts/postsApi';
+import { mapApi } from './mapApi';
+import { postsApi } from './postsApi';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    [mapApi.reducerPath]: mapApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
   },
    middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(postsApi.middleware),
+    getDefaultMiddleware().concat(postsApi.middleware).concat(mapApi.middleware),
 });
 
 setupListeners(store.dispatch)

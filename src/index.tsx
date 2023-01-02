@@ -5,8 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 
-import { store } from './app/store';
-import App from './App';
+import { store } from './store/store';
+import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
 
